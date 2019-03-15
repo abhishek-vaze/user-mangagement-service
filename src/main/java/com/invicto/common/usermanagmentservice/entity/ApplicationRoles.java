@@ -42,5 +42,4 @@ public class ApplicationRoles implements Serializable {
         return role;
     }
 
-
 }

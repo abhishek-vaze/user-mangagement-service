@@ -16,7 +16,9 @@ public class UserDetail implements Serializable {
     @Column(name = "USER_ID")
     @GeneratedValue(strategy=GenerationType.AUTO, generator="user_detail_gen")
     @SequenceGenerator(name="user_detail_gen", sequenceName="USER_DETAIL_SEQ")
+    @Expose
     private Integer userId;
+    @Expose
     @Column(name = "USER_NAME")
     private String userName;
     @Column(name = "PASSWORD")
@@ -97,8 +99,6 @@ public class UserDetail implements Serializable {
         this.userDemographicData = userDemographicData;
     }
 
-
-
     public Set<LoginAttempts> getLogins() {
         return logins;
     }
@@ -107,11 +107,4 @@ public class UserDetail implements Serializable {
         this.logins = logins;
     }
 
-    /*public ApplicationRoles getApplicationRoles() {
-        return applicationRoles;
-    }
-
-    public void setApplicationRoles(ApplicationRoles applicationRoles) {
-        this.applicationRoles = applicationRoles;
-    }*/
 }

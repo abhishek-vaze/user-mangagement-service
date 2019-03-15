@@ -30,13 +30,8 @@ public class UserDemographicData implements Serializable {
     @Expose
     private String mobileNumber;
 
-    public UserDemographicData(UserDetail userDetail, String firstName, String lastName, String emailId, String adress, String mobileNumber) {
-        this.userDetail = userDetail;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailId = emailId;
-        this.adress = adress;
-        this.mobileNumber = mobileNumber;
+    public UserDemographicData() {
+
     }
 
     public UserDetail getUserDetail() {
