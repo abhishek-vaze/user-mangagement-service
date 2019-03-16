@@ -30,11 +30,6 @@ public class UserDetail implements Serializable {
     @Column(name = "LAST_PASSWORD_CHANGED_DATE")
     private Date lastPasswordChangedDate;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "USER_ID")
-    @Expose
-    private UserDemographicData userDemographicData;
-
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name="USER_ID")
     private Set<LoginAttempts> logins;
@@ -89,14 +84,6 @@ public class UserDetail implements Serializable {
 
     public void setLastPasswordChangedDate(Date lastPasswordChangedDate) {
         this.lastPasswordChangedDate = lastPasswordChangedDate;
-    }
-
-    public UserDemographicData getUserDemographicData() {
-        return userDemographicData;
-    }
-
-    public void setUserDemographicData(UserDemographicData userDemographicData) {
-        this.userDemographicData = userDemographicData;
     }
 
     public Set<LoginAttempts> getLogins() {

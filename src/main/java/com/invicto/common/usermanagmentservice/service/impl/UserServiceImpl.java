@@ -1,42 +1,30 @@
 package com.invicto.common.usermanagmentservice.service.impl;
 
 import com.google.common.collect.Lists;
-import com.invicto.common.usermanagmentservice.entity.Application;
-import com.invicto.common.usermanagmentservice.entity.UserDemographicData;
 import com.invicto.common.usermanagmentservice.entity.UserDetail;
+import com.invicto.common.usermanagmentservice.exception.UserAlreadyExistException;
+import com.invicto.common.usermanagmentservice.exception.UserNotFoundException;
 import com.invicto.common.usermanagmentservice.repository.UserDetailRepository;
 import com.invicto.common.usermanagmentservice.request.ApiRequest;
 import com.invicto.common.usermanagmentservice.request.user.UserCreationRequest;
 import com.invicto.common.usermanagmentservice.response.ApiResponse;
 import com.invicto.common.usermanagmentservice.response.ExceptionResponse;
-import com.invicto.common.usermanagmentservice.response.application.ApplicationListResponse;
+import com.invicto.common.usermanagmentservice.response.JsonStringResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserCreationResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserDeletionResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
 import com.invicto.common.usermanagmentservice.util.Validator;
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userServiceBean")
 class UserServiceImpl implements UserSevrice {
-
-    @Autowired
-    @Qualifier("emailValidatorBean")
-    Validator emailValidator;
-
-    @Autowired
-    @Qualifier("adressValidatorBean")
-    Validator adressValidator;
-
-    @Autowired
-    @Qualifier("mobileNumberValidatorBean")
-    Validator mobileNumberValidator;
 
     @Autowired
     private UserDetailRepository userRepo;
@@ -50,23 +38,17 @@ class UserServiceImpl implements UserSevrice {
         catch(Exception ex){
             return new ExceptionResponse(ex,this.getClass().getName());
         }
-
-        UserDemographicData userData = new UserDemographicData();
-        userData.setAdress(userRequest.getAdress());
-        userData.setEmailId(userRequest.getEmailId());
-        userData.setFirstName(userRequest.getFirstName());
-        userData.setLastName(userRequest.getLastName());
-        userData.setMobileNumber(userRequest.getMobileNumber());
-
-        UserDetail userDetail = new UserDetail();
-        userDetail.setUserName(userRequest.getUserName());
-        userDetail.setPassword(userRequest.getPassword());
-        userDetail.setLastPasswordChangedDate(new Date());
-        userDetail.setLocked(false);
-        userDetail.setUserDemographicData(userData);
-
-        userRepo.save(userDetail);
-        return new UserCreationResponse();
+        UserDetail userDetail = userRepo.findByUserName(userRequest.getUserName());
+        if(userDetail == null) {
+            userDetail.setUserName(userRequest.getUserName());
+            userDetail.setPassword(userRequest.getPassword());
+            userDetail.setLastPasswordChangedDate(new Date());
+            userDetail.setLocked(false);
+            userRepo.save(userDetail);
+            return new UserCreationResponse();
+        }
+        else
+            return new ExceptionResponse(new UserAlreadyExistException(),this.getClass().getName());
     }
 
     @Override
@@ -77,15 +59,8 @@ class UserServiceImpl implements UserSevrice {
     }
 
     @Override
-    public ApiResponse updateUser(int id, ApiRequest request) {
-        return  null;
-
-    }
-
-    @Override
-    public ApiResponse getAllUsersWithNameLike(String name) {
-        return  null;
-
+    public ApiResponse updatePassword(int id, ApiRequest request) {
+        return null;
     }
 
     @Override
@@ -113,10 +88,17 @@ class UserServiceImpl implements UserSevrice {
         return new UserListResponse(myList);
     }
 
+    @Override
+    public ApiResponse findUserById(int id) {
+        Optional<UserDetail> detail =  userRepo.findById(id);
+        if(detail.isPresent())
+            return new JsonStringResponse(detail.get());
+        else
+            return new ExceptionResponse(new UserNotFoundException(),this.getClass().getName());
+    }
+
     private UserCreationRequest validateUserCreationRequest(UserCreationRequest request) throws Exception{
-        request.validate(emailValidator);
-        request.validate(adressValidator);
-        request.validate(mobileNumberValidator);
+        request.validate(null);
         return request;
     }
 

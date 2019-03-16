@@ -6,6 +6,7 @@ import com.invicto.common.usermanagmentservice.request.user.UserCreationRequest;
 import com.invicto.common.usermanagmentservice.response.ApiResponse;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
 import com.invicto.common.usermanagmentservice.util.Validator;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -23,29 +24,34 @@ public class UserController {
     private Gson gson;
 
     @GetMapping("/{id}")
-    public String getUser(){
-
-
-        return "Hello";
+    public ResponseEntity<String> getUser(@PathVariable String id){
+        ApiResponse response = service.findUserById(Integer.parseInt(id));
+        return response.buildResponse(gson);
     }
 
     @PostMapping()
-    public ResponseEntity<String> addNewUser(UserCreationRequest request) throws Exception{
+    public ResponseEntity<String> addNewUser(@RequestBody  UserCreationRequest request) throws Exception{
         ApiResponse response = service.createNewUser(request);
         return response.buildResponse(gson);
     }
 
     @DeleteMapping("/{id}")
-    public void removeUser(){
-
+    public ResponseEntity<String> removeUser(@PathVariable String id){
+        ApiResponse response = service.removeUser(Integer.parseInt(id));
+        return response.buildResponse(gson);
     }
 
     @PutMapping
-    public void updateUser(){
-
+    public ResponseEntity<String> updateUser(@PathVariable String id){
+        return null;
     }
     @PostMapping("/{id}")
-    public void grantUserRoles(ApiRequest request){
-
+    public ResponseEntity<String> grantUserRoles(@PathVariable String id,@RequestBody ApiRequest request){
+        return null;
+    }
+    @GetMapping()
+    public ResponseEntity<String> getAllUsers(){
+        ApiResponse response = service.getAllUsers();
+        return response.buildResponse(gson);
     }
 }

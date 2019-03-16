@@ -19,12 +19,7 @@ public class UserCreationRequestTests {
     @Before
     public void setTestObject() {
         testObject = new UserCreationRequest();
-        testObject.setAdress("Twin Arcs, Punawale, Pune");
-        testObject.setEmailId("abhishekvaze@ymail.com");
-        testObject.setMobileNumber("9049998810");
         testObject.setPassword("password123");
-        testObject.setFirstName("Abhishek");
-        testObject.setLastName("Vaze");
         testObject.setUserName("abhishekvaze");
     }
 
@@ -35,11 +30,6 @@ public class UserCreationRequestTests {
         Assert.assertEquals(deserializedObject, testObject);
     }
 
-    @Test(expected = MandatoryValueNotFoundException.class)
-    public void testMandatoryValidationForFirstName() throws Exception {
-        testObject.setFirstName(null);
-        testObject.validate(null);
-    }
 
     @Test(expected = MandatoryValueNotFoundException.class)
     public void testMandatoryValidationForUserName() throws Exception {
@@ -47,17 +37,6 @@ public class UserCreationRequestTests {
         testObject.validate(null);
     }
 
-    @Test(expected = MandatoryValueNotFoundException.class)
-    public void testMandatoryValidationForAdress() throws Exception {
-        testObject.setAdress(null);
-        testObject.validate(null);
-    }
-
-    @Test(expected = MandatoryValueNotFoundException.class)
-    public void testMandatoryValidationForMobileNumber() throws Exception {
-        testObject.setMobileNumber(null);
-        testObject.validate(null);
-    }
 
     @Test(expected = MandatoryValueNotFoundException.class)
     public void testMandatoryValidationForPassword() throws Exception {
@@ -65,9 +44,4 @@ public class UserCreationRequestTests {
         testObject.validate(null);
     }
 
-    @Test(expected = MandatoryValueNotFoundException.class)
-    public void testMandatoryValidationForEmailId() throws Exception {
-        testObject.setEmailId(null);
-        testObject.validate(null);
-    }
 }
