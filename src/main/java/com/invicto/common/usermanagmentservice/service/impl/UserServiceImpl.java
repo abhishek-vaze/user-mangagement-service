@@ -65,7 +65,15 @@ class UserServiceImpl implements UserSevrice {
 
     @Override
     public ApiResponse unlockUser(int id) {
-        return  null;
+        Optional<UserDetail> user = userRepo.findById(id);
+        if(user.isPresent()){
+            UserDetail actualUser = user.get();
+            actualUser.setLocked(false);
+            return null;
+        }
+        else
+
+        return  new ExceptionResponse(new UserNotFoundException(),this.getClass().getName());
 
     }
 

@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateUser(@PathVariable String id){
+    public ResponseEntity<String> updateUser(@PathVariable String id,@RequestBody  UserCreationRequest request){
         return null;
     }
     @PostMapping("/{id}")

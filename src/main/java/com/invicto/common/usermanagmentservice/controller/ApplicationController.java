@@ -24,8 +24,6 @@ public class ApplicationController {
     public ResponseEntity<String> getAllApplicationList(){
         ApiResponse response = service.getAllApplications();
         return response.buildResponse(gson);
-
-
     }
 
     @PostMapping
@@ -59,9 +57,11 @@ public class ApplicationController {
         ApiResponse response = service.removeRoleOfApplication(Integer.parseInt(id),Integer.parseInt(roleId));
         return response.buildResponse(gson);
     }
+
     @GetMapping("{id}/roles")
     public ResponseEntity<String> getApplicationRoles(@PathVariable String id){
         ApiResponse response = service.getApplicationRoles(Integer.parseInt(id));
         return response.buildResponse(gson);
     }
+
 }
