@@ -2,11 +2,9 @@ package com.invicto.common.usermanagmentservice.controller;
 
 import com.google.gson.Gson;
 import com.invicto.common.usermanagmentservice.request.ApiRequest;
-import com.invicto.common.usermanagmentservice.request.user.UserCreationRequest;
+import com.invicto.common.usermanagmentservice.request.user.UserRequest;
 import com.invicto.common.usermanagmentservice.response.ApiResponse;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
-import com.invicto.common.usermanagmentservice.util.Validator;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> addNewUser(@RequestBody  UserCreationRequest request) throws Exception{
+    public ResponseEntity<String> addNewUser(@RequestBody UserRequest request) throws Exception{
         ApiResponse response = service.createNewUser(request);
         return response.buildResponse(gson);
     }
@@ -42,8 +40,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateUser(@PathVariable String id,@RequestBody  UserCreationRequest request){
-        return null;
+    public ResponseEntity<String> updateUser(@RequestBody  UserRequest request){
+        return service.updatePassword(request).buildResponse(gson);
     }
     @PostMapping("/{id}")
     public ResponseEntity<String> grantUserRoles(@PathVariable String id,@RequestBody ApiRequest request){

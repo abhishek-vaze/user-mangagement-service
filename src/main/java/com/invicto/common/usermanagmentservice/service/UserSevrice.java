@@ -8,7 +8,7 @@ public interface UserSevrice {
 
     public ApiResponse createNewUser(ApiRequest request);
     public ApiResponse removeUser(int id);
-    public ApiResponse updatePassword(int id,ApiRequest request);
+    public ApiResponse updatePassword(ApiRequest request);
     public ApiResponse unlockUser(int id);
     public ApiResponse addNewApplicationRoleToUser(int id,ApiRequest request);
     public ApiResponse removeApplicationRoleOfUser(int id,ApiRequest request);

@@ -7,7 +7,7 @@ import com.invicto.common.usermanagmentservice.util.Validator;
 import org.springframework.util.StringUtils;
 
 
-public class UserCreationRequest extends ApiRequest {
+public class UserRequest extends ApiRequest {
 
 
     private String userName;
@@ -44,7 +44,7 @@ public class UserCreationRequest extends ApiRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserCreationRequest that = (UserCreationRequest) o;
+        UserRequest that = (UserRequest) o;
 
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         return password != null ? password.equals(that.password) : that.password == null;

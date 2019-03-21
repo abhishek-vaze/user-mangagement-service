@@ -6,17 +6,16 @@ import com.invicto.common.usermanagmentservice.exception.UserAlreadyExistExcepti
 import com.invicto.common.usermanagmentservice.exception.UserNotFoundException;
 import com.invicto.common.usermanagmentservice.repository.UserDetailRepository;
 import com.invicto.common.usermanagmentservice.request.ApiRequest;
-import com.invicto.common.usermanagmentservice.request.user.UserCreationRequest;
+import com.invicto.common.usermanagmentservice.request.user.UserRequest;
 import com.invicto.common.usermanagmentservice.response.ApiResponse;
 import com.invicto.common.usermanagmentservice.response.ExceptionResponse;
 import com.invicto.common.usermanagmentservice.response.JsonStringResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserCreationResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserDeletionResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
+import com.invicto.common.usermanagmentservice.response.user.UserUpdationResponse;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
-import com.invicto.common.usermanagmentservice.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -31,9 +30,9 @@ class UserServiceImpl implements UserSevrice {
 
     @Override
     public ApiResponse createNewUser(ApiRequest request) {
-        UserCreationRequest userRequest;
+        UserRequest userRequest;
         try {
-            userRequest = validateUserCreationRequest((UserCreationRequest) request);
+            userRequest = validateUserCreationRequest((UserRequest) request);
         }
         catch(Exception ex){
             return new ExceptionResponse(ex,this.getClass().getName());
@@ -59,8 +58,27 @@ class UserServiceImpl implements UserSevrice {
     }
 
     @Override
-    public ApiResponse updatePassword(int id, ApiRequest request) {
-        return null;
+    public ApiResponse updatePassword(ApiRequest request) {
+
+        UserRequest userRequest;
+
+        try {
+            userRequest = validateUserCreationRequest((UserRequest) request);
+        }
+        catch(Exception ex){
+            return new ExceptionResponse(ex,this.getClass().getName());
+        }
+        UserDetail userDetail = userRepo.findByUserName(userRequest.getUserName());
+        if(userDetail == null) {
+            userDetail.setPassword(userRequest.getPassword());
+            userDetail.setLastPasswordChangedDate(new Date());
+            userDetail.setLocked(false);
+            userRepo.save(userDetail);
+            return new UserUpdationResponse();
+        }
+        else
+            return new ExceptionResponse(new UserNotFoundException(),this.getClass().getName());
+
     }
 
     @Override
@@ -105,7 +123,7 @@ class UserServiceImpl implements UserSevrice {
             return new ExceptionResponse(new UserNotFoundException(),this.getClass().getName());
     }
 
-    private UserCreationRequest validateUserCreationRequest(UserCreationRequest request) throws Exception{
+    private UserRequest validateUserCreationRequest(UserRequest request) throws Exception{
         request.validate(null);
         return request;
     }
