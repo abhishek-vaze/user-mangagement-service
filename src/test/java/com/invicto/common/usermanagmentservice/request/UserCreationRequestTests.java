@@ -2,7 +2,7 @@ package com.invicto.common.usermanagmentservice.request;
 
 import com.google.gson.Gson;
 import com.invicto.common.usermanagmentservice.exception.MandatoryValueNotFoundException;
-import com.invicto.common.usermanagmentservice.request.user.UserCreationRequest;
+import com.invicto.common.usermanagmentservice.request.user.UserRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +13,12 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class UserCreationRequestTests {
 
-    private UserCreationRequest testObject;
+    private UserRequest testObject;
     private Gson gson = new Gson();
 
     @Before
     public void setTestObject() {
-        testObject = new UserCreationRequest();
+        testObject = new UserRequest();
         testObject.setPassword("password123");
         testObject.setUserName("abhishekvaze");
     }
@@ -26,7 +26,7 @@ public class UserCreationRequestTests {
     @Test
     public void testNewUserRequestToJson() {
         String gsonString = testObject.toJson(gson);
-        UserCreationRequest deserializedObject = gson.fromJson(gsonString, UserCreationRequest.class);
+        UserRequest deserializedObject = gson.fromJson(gsonString, UserRequest.class);
         Assert.assertEquals(deserializedObject, testObject);
     }
 

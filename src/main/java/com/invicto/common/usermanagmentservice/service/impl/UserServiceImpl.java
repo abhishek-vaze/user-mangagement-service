@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("userServiceBean")
-class UserServiceImpl implements UserSevrice {
+public class UserServiceImpl implements UserSevrice {
 
     @Autowired
     private UserDetailRepository userRepo;
