@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
-This Is Application Page
+<table>
+    <thead>
+    <tr>
+        <th> Application Id </th>
+        <th> Application Name </th>
+        <th> Owner Name </th>
+        <th> Owner Email Id </th>
+        <th> Application Global Id </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${applications.empty}">
+        <td colspan="2"> No Applications Available </td>
+    </tr>
+    <tr th:each="app : ${applications}">
+        <td><span th:text="${app.applicationId}"> Application ID </span></td>
+        <td><span th:text="${app.applicationName}"> Application Name </span></td>
+        <td><span th:text="${app.applicationOwnerName}"> Owner Name </span></td>
+        <td><span th:text="${app.applicationOwnerEmailId}"> Owner Email ID </span></td>
+        <td><span th:text="${app.applicationGolbalId}"> Application Global Id </span></td>
+        <td><a th:href="@{/view/users/{id}(id = ${app.applicationId})}"><button>View Users</button></a></td>
+        <td><a th:href="@{/view/roles/{id}(id = ${app.applicationId})}"><button>View Roles</button></a></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

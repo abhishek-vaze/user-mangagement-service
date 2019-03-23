@@ -24,7 +24,6 @@ public class UserManagmentServiceApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext con = SpringApplication.run(UserManagmentServiceApplication.class, args);
-		Arrays.stream(con.getBeanDefinitionNames()).forEach(s->System.out.println(s));
 
 	}
 

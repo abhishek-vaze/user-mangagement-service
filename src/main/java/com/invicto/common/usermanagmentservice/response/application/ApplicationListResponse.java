@@ -20,4 +20,8 @@ public class ApplicationListResponse extends ApiResponse {
     public ResponseEntity<String> buildResponse(Gson gson) {
         return new ResponseEntity<String>(gson.toJson(applicationList), HttpStatus.OK);
     }
+
+    public List<Application> getApplicationList() {
+        return applicationList;
+    }
 }
