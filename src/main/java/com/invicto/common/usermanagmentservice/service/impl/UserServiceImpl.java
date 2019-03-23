@@ -18,6 +18,8 @@ import com.invicto.common.usermanagmentservice.response.user.UserCreationRespons
 import com.invicto.common.usermanagmentservice.response.user.UserDeletionResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserUpdationResponse;
+import com.invicto.common.usermanagmentservice.response.web.UserRoleDto;
+import com.invicto.common.usermanagmentservice.response.web.UserRoleDtoListResponse;
 import com.invicto.common.usermanagmentservice.service.ApplicationService;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,12 +125,18 @@ public class UserServiceImpl implements UserSevrice {
     public ApiResponse getAllUsersByApplicationId(int id){
 
         Application application = appService.findApplicationById(id);
-        List<UserDetail> userDetailList = new LinkedList<>();
+        List<UserRoleDto> userDetailList = new LinkedList<>();
         if(Objects.nonNull(application)){
             for (ApplicationRoles appRole: application.getRoles()) {
-                userDetailList.addAll(appRole.getUser());
+                for (UserDetail user:appRole.getUser()) {
+                    UserRoleDto dto = new UserRoleDto();
+                    dto.setUserDetail(user);
+                    dto.setRoleDescription(appRole.getRole().getRoleDescription());
+                    userDetailList.add(dto);
+                }
+
             }
-            return new UserListResponse(userDetailList);
+            return new UserRoleDtoListResponse(userDetailList);
         }
         else
             return new ExceptionResponse(new ApplicationNotFoundException(),this.getClass().getName());

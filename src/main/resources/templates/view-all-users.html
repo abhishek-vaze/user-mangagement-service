@@ -13,6 +13,7 @@
         <th> IsLocked </th>
         <th> Failed Login Count </th>
         <th> Last Password Changed </th>
+        <th> Role </th>
     </tr>
     </thead>
     <tbody>
@@ -20,12 +21,13 @@
         <td colspan="2"> No Applications Available </td>
     </tr>
     <tr th:each="user : ${users}">
-        <td><span th:text="${user.userId}"> User Id </span></td>
-        <td><span th:text="${user.userName}"> User Name </span></td>
-        <td><span th:text="${user.getLocked()}"> isLocked </span></td>
-        <td><span th:text="${user.failedLoginCount}"> Failed Login Count </span></td>
-        <td><span th:text="${user.lastPasswordChangedDate}"> Last Password Changed </span></td>
-        <td><a th:href="@{/users/unlock{id}(id = ${user.userId})}"><button>Unlock</button></a></td>
+        <td><span th:text="${user.userDetail.userId}"> User Id </span></td>
+        <td><span th:text="${user.userDetail.userName}"> User Name </span></td>
+        <td><span th:text="${user.userDetail.getLocked()}"> isLocked </span></td>
+        <td><span th:text="${user.userDetail.failedLoginCount}"> Failed Login Count </span></td>
+        <td><span th:text="${user.userDetail.lastPasswordChangedDate}"> Last Password Changed </span></td>
+        <td><span th:text="${user.roleDescription}"> Role </span></td>
+        <td><a th:href="@{/users/unlock{id}(id = ${user.userDetail.userId})}"><button>Unlock</button></a></td>
         <td><a th:href="@{/users/{id}(id = ${user.userId})}"><button>Delete</button></a></td>
     </tr>
     </tbody>

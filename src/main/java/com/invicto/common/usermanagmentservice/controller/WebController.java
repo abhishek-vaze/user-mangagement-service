@@ -2,6 +2,7 @@ package com.invicto.common.usermanagmentservice.controller;
 
 import com.invicto.common.usermanagmentservice.response.application.ApplicationListResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
+import com.invicto.common.usermanagmentservice.response.web.UserRoleDtoListResponse;
 import com.invicto.common.usermanagmentservice.service.ApplicationService;
 import com.invicto.common.usermanagmentservice.service.UserSevrice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class WebController {
     @GetMapping("/view/users/{applicationId}")
     public String getAllUsers(@PathVariable() int applicationId,Model model){
 
-        UserListResponse userList = (UserListResponse)userSevrice.getAllUsersByApplicationId(applicationId);
-        model.addAttribute("users",userList.getUserDetailList());
+        UserRoleDtoListResponse userList = (UserRoleDtoListResponse)userSevrice.getAllUsersByApplicationId(applicationId);
+        model.addAttribute("users",userList.getDto());
         return "view-all-users";
     }
     @GetMapping("/add/application")
