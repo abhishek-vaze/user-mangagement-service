@@ -28,7 +28,7 @@
         <td><span th:text="${user.userDetail.lastPasswordChangedDate}"> Last Password Changed </span></td>
         <td><span th:text="${user.roleDescription}"> Role </span></td>
         <td><a th:href="@{/users/unlock{id}(id = ${user.userDetail.userId})}"><button>Unlock</button></a></td>
-        <td><a th:href="@{/users/{id}(id = ${user.userId})}"><button>Delete</button></a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.userDetail.userId})}"><button>Delete</button></a></td>
     </tr>
     </tbody>
 </table>
