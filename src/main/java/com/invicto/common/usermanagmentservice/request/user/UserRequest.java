@@ -30,7 +30,7 @@ public class UserRequest extends ApiRequest {
     }
 
     @Override
-    public void validate(Validator valid) throws Exception {
+    public void validate(Validator valid) throws MandatoryValueNotFoundException {
         if (StringUtils.isEmpty(getUserName())) { //mandatory field validation
             throw new MandatoryValueNotFoundException("userName");
         }

@@ -1,5 +1,6 @@
 package com.invicto.common.usermanagmentservice.service;
 
+import com.invicto.common.usermanagmentservice.entity.Application;
 import com.invicto.common.usermanagmentservice.request.ApiRequest;
 import com.invicto.common.usermanagmentservice.response.ApiResponse;
 
@@ -11,4 +12,5 @@ public interface ApplicationService {
     public ApiResponse removeRoleOfApplication(int id,int roleId);
     public ApiResponse getAllApplications();
     public ApiResponse getApplicationRoles(int id);
+    public Application findApplicationById(int id);
 }

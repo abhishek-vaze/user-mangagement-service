@@ -12,7 +12,7 @@ public interface UserSevrice {
     public ApiResponse unlockUser(int id);
     public ApiResponse addNewApplicationRoleToUser(int id,ApiRequest request);
     public ApiResponse removeApplicationRoleOfUser(int id,ApiRequest request);
-    public ApiResponse getAllUsers();
+    public ApiResponse getAllUsersByApplicationId(int id);
     public ApiResponse findUserById(int id);
 
 }

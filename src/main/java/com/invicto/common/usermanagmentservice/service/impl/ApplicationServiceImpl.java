@@ -178,6 +178,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
+    @Override
+    public Application findApplicationById(int id) {
+        Application application = appRepo.findByApplicationId(id);
+        return application;
+    }
+
     private ApplicationCreationRequest validateRequest(ApiRequest request) throws Exception {
         request.validate(emailValidator);
         return (ApplicationCreationRequest) request;

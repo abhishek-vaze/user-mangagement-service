@@ -47,9 +47,4 @@ public class UserController {
     public ResponseEntity<String> grantUserRoles(@PathVariable String id,@RequestBody ApiRequest request){
         return null;
     }
-    @GetMapping()
-    public ResponseEntity<String> getAllUsers(){
-        ApiResponse response = service.getAllUsers();
-        return response.buildResponse(gson);
-    }
 }

@@ -1,7 +1,9 @@
 package com.invicto.common.usermanagmentservice.controller;
 
 import com.invicto.common.usermanagmentservice.response.application.ApplicationListResponse;
+import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
 import com.invicto.common.usermanagmentservice.service.ApplicationService;
+import com.invicto.common.usermanagmentservice.service.UserSevrice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +16,23 @@ public class WebController {
     @Autowired
     ApplicationService service;
 
+    @Autowired
+    UserSevrice userSevrice;
+
     @GetMapping("/view/applications")
     public String getAllApplication(Model model){
 
         ApplicationListResponse respone = (ApplicationListResponse)service.getAllApplications();
-        System.out.println("List size is "+respone.getApplicationList().size());
         model.addAttribute("applications",respone.getApplicationList());
 
         return "view-all-applications";
     }
 
     @GetMapping("/view/users/{applicationId}")
-    public String getAllUsers(@PathVariable() int applicationId){
-        System.out.println("application id is "+applicationId);
+    public String getAllUsers(@PathVariable() int applicationId,Model model){
 
+        UserListResponse userList = (UserListResponse)userSevrice.getAllUsersByApplicationId(applicationId);
+        model.addAttribute("users",userList.getUserDetailList());
         return "view-all-users";
     }
     @GetMapping("/add/application")

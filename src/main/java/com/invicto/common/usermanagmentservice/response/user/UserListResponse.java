@@ -21,4 +21,8 @@ public class UserListResponse extends ApiResponse {
     public ResponseEntity<String> buildResponse(Gson gson) {
         return new ResponseEntity<>(gson.toJson(userDetailList), HttpStatus.OK);
     }
+
+    public List<UserDetail> getUserDetailList() {
+        return userDetailList;
+    }
 }

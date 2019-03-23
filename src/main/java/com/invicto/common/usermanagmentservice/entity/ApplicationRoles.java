@@ -42,4 +42,19 @@ public class ApplicationRoles implements Serializable {
         return role;
     }
 
+    public int getApplicationRoleId() {
+        return applicationRoleId;
+    }
+
+    public void setApplicationRoleId(int applicationRoleId) {
+        this.applicationRoleId = applicationRoleId;
+    }
+
+    public List<UserDetail> getUser() {
+        return user;
+    }
+
+    public void setUser(List<UserDetail> user) {
+        this.user = user;
+    }
 }
