@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserSevrice {
             userRequest = validateUserCreationRequest((UserRequest) request);
             UserDetail userDetail = userRepo.findByUserName(userRequest.getUserName());
             if(userDetail == null) {
-                userDetail = new UserDetail();6
+                userDetail = new UserDetail();
                 userDetail.setUserName(userRequest.getUserName());
                 userDetail.setPassword(userRequest.getPassword());
                 userDetail.setLastPasswordChangedDate(new Date());

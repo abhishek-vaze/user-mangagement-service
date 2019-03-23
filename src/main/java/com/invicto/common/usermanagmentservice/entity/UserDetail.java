@@ -34,9 +34,9 @@ public class UserDetail implements Serializable {
     @JoinColumn(name="USER_ID")
     private Set<LoginAttempts> logins;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="USER_ID")
-    private List<ApplicationRoles> applicationRoles;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="USER_ID",insertable=false,updatable=false)
+    private ApplicationRoles applicationRoles;
 
     public Integer getUserId() {
         return userId;
