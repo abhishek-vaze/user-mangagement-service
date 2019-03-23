@@ -70,6 +70,14 @@ public class UserDetail implements Serializable {
         isLocked = locked;
     }
 
+    public ApplicationRoles getApplicationRoles() {
+        return applicationRoles;
+    }
+
+    public void setApplicationRoles(ApplicationRoles applicationRoles) {
+        this.applicationRoles = applicationRoles;
+    }
+
     public int getFailedLoginCount() {
         return failedLoginCount;
     }

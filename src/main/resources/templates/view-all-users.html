@@ -20,13 +20,13 @@
         <td colspan="2"> No Applications Available </td>
     </tr>
     <tr th:each="user : ${users}">
-        <td><span th:text="${app.userId}"> User Id </span></td>
-        <td><span th:text="${app.userName}"> User Name </span></td>
-        <td><span th:text="${app.isLocked}"> isLocked </span></td>
-        <td><span th:text="${app.failedLoginCount}"> Failed Login Count </span></td>
-        <td><span th:text="${app.lastPasswordChangedDate}"> Last Password Changed </span></td>
-        <td><a th:href=""><button>Unlock</button></a></td>
-        <td><a th:href=""><button>Delete</button></a></td>
+        <td><span th:text="${user.userId}"> User Id </span></td>
+        <td><span th:text="${user.userName}"> User Name </span></td>
+        <td><span th:text="${user.getLocked()}"> isLocked </span></td>
+        <td><span th:text="${user.failedLoginCount}"> Failed Login Count </span></td>
+        <td><span th:text="${user.lastPasswordChangedDate}"> Last Password Changed </span></td>
+        <td><a th:href="@{/users/unlock{id}(id = ${user.userId})}"><button>Unlock</button></a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.userId})}"><button>Delete</button></a></td>
     </tr>
     </tbody>
 </table>
