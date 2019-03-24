@@ -1,6 +1,7 @@
 package com.invicto.common.usermanagmentservice.controller;
 
 import com.invicto.common.usermanagmentservice.response.application.ApplicationListResponse;
+import com.invicto.common.usermanagmentservice.response.role.RoleListResponse;
 import com.invicto.common.usermanagmentservice.response.user.UserListResponse;
 import com.invicto.common.usermanagmentservice.response.web.UserRoleDtoListResponse;
 import com.invicto.common.usermanagmentservice.service.ApplicationService;
@@ -36,6 +37,14 @@ public class WebController {
         model.addAttribute("users",userList.getDto());
         return "view-all-users";
     }
+
+    @GetMapping("/view/users/{applicationId}")
+    public String getAllRoles(@PathVariable() int applicationId,Model model){
+        RoleListResponse response = (RoleListResponse)service.getApplicationRoles(applicationId);
+        model.addAttribute("roles",response.getRoles());
+        return "view-all-users";
+    }
+
     @GetMapping("/add/application")
     public String addNewApplication(){
         return "new-application";

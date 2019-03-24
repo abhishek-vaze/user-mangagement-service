@@ -20,4 +20,9 @@ public class RoleListResponse extends ApiResponse {
     public ResponseEntity<String> buildResponse(Gson gson) {
         return new ResponseEntity<>(gson.toJson(roles), HttpStatus.OK);
     }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
 }
